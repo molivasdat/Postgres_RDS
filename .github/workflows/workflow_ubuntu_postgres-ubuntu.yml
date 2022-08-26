@@ -66,5 +66,6 @@ jobs:
           ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --logLevel=FINE --username=postgres --password=postgres update
           ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --username=postgres --password=postgres rollback version1
           ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5433/postgres_test --username=postgres --password=postgres status --verbose
-
+        env:
+          LIQUIBASE_LICENSE_KEY: ${{ secrets.LIQUIBASE_LICENSE_KEY }}
           
