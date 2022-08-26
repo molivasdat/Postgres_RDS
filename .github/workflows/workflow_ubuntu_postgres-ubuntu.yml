@@ -55,14 +55,16 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run Liquibase Commands
         run: |
-          curl -L https://github.com/liquibase/liquibase/releases/download/v4.9.1/liquibase-4.9.1.zip --output liquibase-4.9.1.zip
-          unzip -o -d liquibase liquibase-4.9.1.zip
+          curl -L https://github.com/liquibase/liquibase/releases/download/v4.15.0/liquibase-4.15.0.zip --output liquibase-4.15.0.zip
+          unzip -o -d liquibase liquibase-4.15.0.zip
           ./liquibase/liquibase --version
-          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --classpath=./postgresql-42.2.8.jar --username=postgres --password=postgres status --verbose
-          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --classpath=./postgresql-42.2.8.jar --username=postgres --password=postgres updateSQL
-          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --classpath=./postgresql-42.2.8.jar --username=postgres --password=postgres tag version1
-          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --logLevel=FINE --classpath=./postgresql-42.2.8.jar --username=postgres --password=postgres update
-          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --classpath=./postgresql-42.2.8.jar --username=postgres --password=postgres rollback version1
-          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5433/postgres_test --classpath=./postgresql-42.2.8.jar --username=postgres --password=postgres status --verbose
+          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --username=postgres --password=postgres status --verbose
+          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev checks show
+          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev checks run
+          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --username=postgres --password=postgres updateSQL
+          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --username=postgres --password=postgres tag version1
+          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --logLevel=FINE --username=postgres --password=postgres update
+          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --username=postgres --password=postgres rollback version1
+          ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5433/postgres_test --username=postgres --password=postgres status --verbose
 
           
