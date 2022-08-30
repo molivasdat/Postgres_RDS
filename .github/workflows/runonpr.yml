@@ -17,23 +17,23 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    # services:
-    #   postgres_dev:
-    #     # Docker Hub image
-    #     image: postgres:latest
-    #     # Provide the password for postgres
-    #     env:
-    #       POSTGRES_USER: postgres
-    #       POSTGRES_PASSWORD: postgres
-    #       POSTGRES_DB: postgres_dev
-    #     ports:
-    #       - 5432:5432
-    #     # Set health checks to wait until postgres has started
-    #     options: >-
-    #       --health-cmd pg_isready
-    #       --health-interval 10s
-    #       --health-timeout 5s
-    #       --health-retries 5
+    services:
+      postgres_dev:
+        # Docker Hub image
+        image: postgres:latest
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres_dev
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
       
     #   postgres_test:
     #     # Docker Hub image
@@ -66,5 +66,7 @@ jobs:
           ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev checks show
           ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev checks run
           ./liquibase/liquibase --changeLogFile=./changelog.postgresql.sql --url=jdbc:postgresql://127.0.0.1:5432/postgres_dev --username=postgres --password=postgres updateSQL
+        env:
+          LIQUIBASE_LICENSE_KEY: ${{ secrets.LIQUIBASE_LICENSE_KEY }}
 
           
